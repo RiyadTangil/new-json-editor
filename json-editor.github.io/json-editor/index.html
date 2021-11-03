@@ -137,9 +137,9 @@
       'required': [
         'translations',
         'contents',
-        'images',
+
         'config',
-        'images',
+   
 
       ],
       'properties': {
@@ -675,7 +675,7 @@
               },
             },
 
-       
+
 
             "headingColor": {
               'type': 'object',
@@ -695,7 +695,7 @@
               },
 
             },
- 
+
             "questionColor": {
               'type': 'object',
               'title': 'questionColor',
@@ -714,87 +714,85 @@
               },
 
             },
- 
 
 
-
-          }
-        },
-
-
-
-        'images': {
-          'type': 'object',
-          'title': 'images',
-          'format': 'table',
-          'uniqueItems': true,
-          'properties': {
-
-
-            "hompageBg": {
-              'type': 'object',
-              'title': 'hompageBg',
-              'properties': {
-
-                'type': {
-                  'type': 'string',
-                  'title': 'type',
-                  'default': "link"
-                },
-                'value': {
-                  'type': 'string',
-                  'title': 'value',
-                  'default': 14
-                },
-
-
-              },
-            },
-
-
-
-            "headingSize": {
-              'type': 'object',
-              'title': 'headingSize',
-              'properties': {
-                'type': {
-                  'type': 'string',
-                  'default': 'number'
-                },
-                'value': {
-                  'type': 'number',
-                  'title': 'value',
-                  'default': 14
-                },
-
-
-              },
-            },
-
-
-            "headingColor": {
-              'type': 'object',
-              'title': 'headingColor',
-              'properties': {
-                'type': {
-                  'type': 'string',
-                  'default': "color"
-                },
-                'color': {
-                  'type': 'string',
-                  'format': 'color',
-                  'title': 'color',
-                  'default': '#ffa500'
-                },
-
-              },
-
-            },
 
 
           }
         },
 
+
+
+        // 'images': {
+        //   'type': 'object',
+        //   'title': 'images',
+    
+        //   'properties': {
+        //     'format': 'url',
+        //     'type': 'string',
+        //     "options": {
+        //       "upload": {
+        //         "upload_handler": "testUploadHandler"
+        //       },
+        //     },
+        //     "links": [
+        //       {
+        //         "href": "{{self}}"
+        //       }
+        //     ],
+
+        //     "upload_custom_link": {
+        //       "type": "string",
+        //       "format": "url",
+        //       'options': {
+        //         'upload': {
+        //           'upload_handler': "testUploadHandler"
+        //         }
+        //       },
+        //       "links": [
+        //         {
+        //           "href": "{{self}}",
+        //           "rel": "view"
+        //         }
+        //       ]
+        //     },
+        //     'upload_readonly': {
+        //       'readonly': true,
+        //       'type': "string",
+        //       'format': "url",
+        //       'options': {
+        //         'upload': {
+        //           'upload_handler': "testUploadHandler"
+        //         }
+        //       },
+        //       "links": [
+        //         {
+        //           "href": "{{self}}"
+        //         }
+        //       ]
+        //     },
+        //     'upload_fail': {
+        //       'type': "string",
+        //       'format': "url",
+        //       'options': {
+        //         'upload': {
+        //           'upload_handler': "testUploadHandler"
+        //         }
+        //       },
+        //       "links": [
+        //         {
+        //           "href": "{{self}}"
+        //         }
+        //       ]
+        //     },
+
+        //     "name": {
+        //       "type": "string"
+        //     }
+
+
+        //   },
+        // },
 
 
       }
@@ -1146,6 +1144,6 @@
   </script>
 </body>
 
-<!-- Mirrored from json-editor.github.io/json-editor/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 Nov 2021 11:16:18 GMT -->
+
 
 </html>
