@@ -137,7 +137,7 @@
       'required': [
         'translations',
         'contents',
-
+        'images',
         'config',
 
 
@@ -152,6 +152,7 @@
             'en': {
               'type': 'object',
               'title': 'en',
+
               'properties': {
                 'homepage': {
                   'type': 'object',
@@ -164,14 +165,16 @@
                       'properties': {
 
                         'type': {
+
                           'type': 'string',
-                          'title': 'type',
+                          'title': 'string',
                           'default': 'string'
                         },
                         'value': {
                           'type': 'string',
                           'title': 'value',
-                          'default': "some heading"
+
+                          'default': "some heading---"
                         },
 
 
@@ -241,6 +244,7 @@
                           'value': {
                             'type': 'number',
                             'title': 'value',
+                            'format': 'range',
                             'default': 5
                           },
 
@@ -260,6 +264,7 @@
                           'value': {
                             'type': 'number',
                             'title': 'value',
+                            'format': 'range',
                             'default': 10
                           },
 
@@ -280,6 +285,7 @@
                           'value': {
                             'type': 'number',
                             'title': 'value',
+                            'format': 'range',
                             'default': 8
                           },
 
@@ -293,7 +299,12 @@
 
                     }
                   },
-
+                  // 'default': [
+                  //   {
+                  //     'type': 'dog',
+                  //     'name': 'Walter'
+                  //   }
+                  // ]
 
 
                 },
@@ -474,13 +485,13 @@
                     "test-1": {
                       'type': 'object',
                       'title': 'test-1',
-                   
+
                       'properties': {
 
                         'type': {
                           'type': 'string',
                           'title': 'type',
-                          'format': 'tel',
+
                           'default': 'string'
                         },
                         'value': {
@@ -734,82 +745,81 @@
 
           }
         },
+        'images': {
+          'type': 'object',
+          'title': 'images',
+
+          'properties': {
+            "hompageBg": {
+              'type': 'object',
+              'title': 'hompageBg',
+              'properties': {
+                'type': {
+                  'type': 'string',
+                  'default': "link"
+                },
+                "hompageBg": {
+                  "type": "string",
+                  "format": "url",
+                  'options': {
+                    'upload': {
+                      'upload_handler': "testUploadHandler"
+                    }
+                  },
+                  "links": [
+                    {
+                      "href": "{{self}}",
+                      "rel": "view"
+                    }
+                  ]
+                },
+
+
+              },
+
+            },
+
+
+            "logo": {
+              'type': 'object',
+              'title': 'logo',
+              'properties': {
+                'type': {
+                  'type': 'string',
+                  'default': "link"
+                },
+                "hompageBg": {
+                  "type": "string",
+                  "format": "url",
+                  'options': {
+                    'upload': {
+                      'upload_handler': "testUploadHandler"
+                    }
+                  },
+                  "links": [
+                    {
+                      "href": "{{self}}",
+                      "rel": "view"
+                    }
+                  ]
+                },
+
+
+              },
+
+            },
 
 
 
-        // 'images': {
-        //   'type': 'object',
-        //   'title': 'images',
 
-        //   'properties': {
-        //     'format': 'url',
-        //     'type': 'string',
-        //     "options": {
-        //       "upload": {
-        //         "upload_handler": "testUploadHandler"
-        //       },
-        //     },
-        //     "links": [
-        //       {
-        //         "href": "{{self}}"
-        //       }
-        //     ],
-
-        //     "upload_custom_link": {
-        //       "type": "string",
-        //       "format": "url",
-        //       'options': {
-        //         'upload': {
-        //           'upload_handler': "testUploadHandler"
-        //         }
-        //       },
-        //       "links": [
-        //         {
-        //           "href": "{{self}}",
-        //           "rel": "view"
-        //         }
-        //       ]
-        //     },
-        //     'upload_readonly': {
-        //       'readonly': true,
-        //       'type': "string",
-        //       'format': "url",
-        //       'options': {
-        //         'upload': {
-        //           'upload_handler': "testUploadHandler"
-        //         }
-        //       },
-        //       "links": [
-        //         {
-        //           "href": "{{self}}"
-        //         }
-        //       ]
-        //     },
-        //     'upload_fail': {
-        //       'type': "string",
-        //       'format': "url",
-        //       'options': {
-        //         'upload': {
-        //           'upload_handler': "testUploadHandler"
-        //         }
-        //       },
-        //       "links": [
-        //         {
-        //           "href": "{{self}}"
-        //         }
-        //       ]
-        //     },
-
-        //     "name": {
-        //       "type": "string"
-        //     }
-
-
-        //   },
-        // },
+          },
+        },
 
 
       }
+
+
+
     }
 
 
@@ -843,6 +853,29 @@
     let validateTextarea = document.querySelector('#validate-textarea')
 
     /* -------------------------------------------------------------- parse url */
+    JSONEditor.defaults.callbacks.upload = {
+      "testUploadHandler": function (jseditor, type, file, cbs) {
+        if (type === 'root.upload_fail') cbs.failure('Upload failed');
+        else {
+          var tick = 0;
+
+          var tickFunction = function () {
+            tick += 1;
+            console.log('progress: ' + tick);
+            if (tick < 100) {
+              cbs.updateProgress(tick);
+              window.setTimeout(tickFunction, 50)
+            } else if (tick == 100) {
+              cbs.updateProgress();
+              window.setTimeout(tickFunction, 500)
+            } else {
+              cbs.success('http://www.example.com/images/' + file.name);
+            }
+          };
+          window.setTimeout(tickFunction)
+        }
+      }
+    }
 
     const parseUrl = function () {
       const url = window.location.search
